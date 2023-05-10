@@ -14,6 +14,7 @@
     <CreatePrinterFloorDialog />
     <PrinterMaintenanceDialog />
     <BatchJsonCreateDialog />
+    <YamlImportExportDialog />
     <FileExplorerSideNav />
   </v-app>
 </template>
@@ -24,7 +25,7 @@ import NavigationDrawer from "@/components/Generic/NavigationDrawer.vue";
 import TopBar from "@/components/Generic/TopBar.vue";
 import ErrorAlert from "@/components/Generic/AlertStack.vue";
 import UpdatePrinterDialog from "@/components/Generic/Dialogs/UpdatePrinterDialog.vue";
-import FileExplorerSideNav from "@/components/Generic/SideNavs/FileExplorerSideNav.vue";
+import FileExplorerSideNav from "./components/Generic/FileExplorerSideNav.vue";
 import CreatePrinterDialog from "@/components/Generic/Dialogs/CreatePrinterDialog.vue";
 import CreatePrinterFloorDialog from "@/components/Generic/Dialogs/CreatePrinterFloorDialog.vue";
 import PrinterMaintenanceDialog from "@/components/Generic/Dialogs/PrinterMaintenanceDialog.vue";
@@ -34,6 +35,8 @@ import { useServerSettingsStore } from "@/store/server-settings.store";
 import { SocketIoService } from "./shared/socketio.service";
 import { useDialogsStore } from "@/store/dialog.store";
 import BatchJsonCreateDialog from "@/components/Generic/Dialogs/BatchJsonCreateDialog.vue";
+import YamlImportExportDialog from "@/components/Generic/Dialogs/YamlImportExportDialog.vue";
+import { useFeatureStore } from "./store/features.store";
 
 interface Data {
   socketIoClient?: SocketIoService;
@@ -42,6 +45,7 @@ interface Data {
 export default defineComponent({
   name: "AppView",
   components: {
+    YamlImportExportDialog,
     TopBar,
     NavigationDrawer,
     UpdatePrinterDialog,
@@ -57,6 +61,7 @@ export default defineComponent({
       uploadsStore: useUploadsStore(),
       printersStore: usePrintersStore(),
       serverSettingsStore: useServerSettingsStore(),
+      featureStore: useFeatureStore(),
       dialogsStore: useDialogsStore(),
     };
   },
@@ -64,6 +69,7 @@ export default defineComponent({
     this.uploadsStore._injectEventBus(this.$bus);
 
     await this.serverSettingsStore.loadServerSettings();
+    await this.featureStore.loadFeatures();
     await this.connectSocketIoClient();
   },
   async mounted() {},

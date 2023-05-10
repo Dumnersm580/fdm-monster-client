@@ -1,9 +1,9 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import HomePrinterGrid from "@/views/PrinterGridView.vue";
+import PrinterGridView from "@/components/PrinterGrid/PrinterGridView.vue";
 import PrintersView from "@/components/PrinterList/PrintersView.vue";
-import Settings from "@/views/SettingsView.vue";
-import About from "@/views/AboutView.vue";
+import Settings from "../components/Settings/SettingsView.vue";
+import AboutHelp from "../components/AboutHelp/AboutView.vue";
 import PrintStatisticsView from "@/components/PrintStatistics/PrintStatisticsView.vue";
 import FdmSettings from "@/components/Settings/FdmSettings.vue";
 import ServerRelatedSettings from "@/components/Settings/ServerRelatedSettings.vue";
@@ -16,7 +16,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
-    component: HomePrinterGrid,
+    component: PrinterGridView,
   },
   {
     path: "/printers",
@@ -57,7 +57,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/about",
     name: "About",
-    component: About,
+    component: AboutHelp,
   },
   {
     path: "*",
